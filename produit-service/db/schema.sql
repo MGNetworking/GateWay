@@ -16,11 +16,9 @@ drop table IF EXISTS product.produit CASCADE;
 ------------------------------------------------------
 CREATE TABLE product.produit
 (
-    id_produit serial,
+    id_produit serial primary key ,
     nom        varchar(255)   NOT NULL,
     prix       NUMERIC(10, 2)  NOT NULL,
-    quantite   int NOT NULL,
-
-    constraint PK_id_produit PRIMARY KEY (id_produit)
+    quantite   int NOT NULL
 
 );
