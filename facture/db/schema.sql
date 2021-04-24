@@ -29,9 +29,11 @@ CREATE TABLE facturation.ItemProduit
 (
 
     id_itemProduit serial primary key ,
-    quantity double precision not null ,
-    prix numeric(10,2) NOT NULL,
+    id_facture bigint NOT NULL,
     id_produit bigint NOT NULL,
-    id_facture bigint NOT NULL
+    quantity double precision not null ,
+    prix numeric(10,2) NOT NULL
+
+
 
 );

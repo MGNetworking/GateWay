@@ -16,4 +16,7 @@ public interface ItemProduitRestClient {
 
     @GetMapping(path = "/produits/{id}")
     Produit getProduitById(@PathVariable(value = "id") Long id);
+
+    @GetMapping(path = "/produits/{nom}")
+    Produit getProduitByName(@PathVariable(value = "nom") String nom);
 }
