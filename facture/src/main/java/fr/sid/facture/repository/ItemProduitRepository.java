@@ -12,7 +12,6 @@ import java.util.Collection;
 @RepositoryRestResource
 public interface ItemProduitRepository extends JpaRepository<ItemProduit, Long> {
 
-    //@RestResource
-    //public Collection<ItemProduit> findById_itemProduit(@Param("id") Long id);
+    public Collection<ItemProduit> findByFacture(Long id);
 }
 

@@ -17,8 +17,9 @@ drop table IF EXISTS facturation.ItemProduit CASCADE;
 ------------------------------------------------------
 CREATE TABLE facturation.facture
 (
-    id_facture serial primary key,
-    date       date NOT NULL
+    id serial primary key,
+    date       date NOT NULL,
+    id_client bigint NOT NULL
 
 );
 
@@ -28,12 +29,10 @@ CREATE TABLE facturation.facture
 CREATE TABLE facturation.ItemProduit
 (
 
-    id_itemProduit serial primary key ,
-    id_facture bigint NOT NULL,
-    id_produit bigint NOT NULL,
-    quantity double precision not null ,
-    prix numeric(10,2) NOT NULL
-
-
+    id serial primary key,
+    id_facture     bigint           NOT NULL,
+    id_produit     bigint           NOT NULL,
+    quantity       double precision not null,
+    prix           numeric(10, 2)   NOT NULL
 
 );

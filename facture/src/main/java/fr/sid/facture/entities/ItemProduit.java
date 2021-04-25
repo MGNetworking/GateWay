@@ -12,16 +12,18 @@ import javax.persistence.*;
 
 @Entity
 @Data @NoArgsConstructor @AllArgsConstructor @ToString
+@Table(name = "itemproduit")
 public class ItemProduit {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_itemProduit;
+    private Long id;
+    private Long id_produit;
     private double quantity;
     private double prix;
-    private Long id_produit;
 
-    @ManyToOne
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToOne
+    @JoinColumn(name = "id_facture")
     private Facture facture;
 
     @Transient
