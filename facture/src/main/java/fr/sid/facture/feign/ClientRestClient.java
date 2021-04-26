@@ -11,6 +11,6 @@ public interface ClientRestClient {
     @GetMapping(path = "/clients/{id}")
     Client getClientById(@PathVariable(name = "id")Long id);
 
-    @GetMapping(path = "/clients/{nom}")
-    Client getClientByName(@PathVariable(name = "nom") String nom);
+    @GetMapping(path = "/clients/search/byNom?nom={nom}")
+    Client getClientByNom(@PathVariable(name = "nom") String nom);
 }

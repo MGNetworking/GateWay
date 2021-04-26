@@ -1,9 +1,8 @@
 package fr.sid.facture.web.controller;
 
 import fr.sid.facture.entities.Facture;
-import fr.sid.facture.entities.ItemProduit;
 import fr.sid.facture.feign.ClientRestClient;
-import fr.sid.facture.feign.ItemProduitRestClient;
+import fr.sid.facture.feign.ProduitRestClient;
 import fr.sid.facture.model.Client;
 import fr.sid.facture.model.Produit;
 import fr.sid.facture.repository.*;
@@ -12,28 +11,30 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
 @RestController
 @Slf4j
+@Transactional(rollbackFor = Exception.class)
 public class FaturationRestController {
 
     private FactureRepository factureRepository;
     private ItemProduitRepository itemProduitRepository;
 
     private ClientRestClient clientRestClient;
-    private ItemProduitRestClient itemProduitRestClient;
+    private ProduitRestClient produitRestClient;
 
     public FaturationRestController(FactureRepository factureRepository,
                                     ItemProduitRepository itemProduitRepository,
                                     ClientRestClient clientRestClient,
-                                    ItemProduitRestClient itemProduitRestClient) {
+                                    ProduitRestClient produitRestClient) {
         this.factureRepository = factureRepository;
         this.itemProduitRepository = itemProduitRepository;
         this.clientRestClient = clientRestClient;
-        this.itemProduitRestClient = itemProduitRestClient;
+        this.produitRestClient = produitRestClient;
     }
 
     /**
@@ -54,7 +55,7 @@ public class FaturationRestController {
 
         facture.getItemProduits().forEach(itemProduit -> {
             // recherche du produit dasn micro service produit
-            Produit produit = itemProduitRestClient.getProduitById(itemProduit.getId_produit());
+            Produit produit = produitRestClient.getProduitById(itemProduit.getId_produit());
             itemProduit.setProduit(produit);
         });
 
@@ -77,17 +78,13 @@ public class FaturationRestController {
     @PostMapping(path = "/addfacture",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Facture> addFature(@RequestBody ItemProduit itemProduit,
-                                             Client client) {
+    public ResponseEntity<Facture> addFature(@RequestBody Facture facture) {
 
         ResponseEntity<Facture> factureResponseEntity;
 
-        // recherche info du client
-        client = this.clientRestClient.getClientByName(client.getNom());
+        // parti client
+        Client client = this.clientRestClient.getClientByNom(facture.getClient().getNom());
 
-        log.info("Info client : " + client);
-
-        Facture facture = new Facture();
 
         if (client.getId_client() == null) {
 
@@ -99,17 +96,37 @@ public class FaturationRestController {
         } else {
 
 
-            // Création de la facture
+            // parti facture
             facture.setDate(new Date());
-            facture.getItemProduits().add(itemProduit);
             facture.setClient(client);
-            log.info("Info facture : " + facture + "\n" +
-                    "Info produit : " + itemProduit);
+            facture.setId_client(client.getId_client());
 
-            this.itemProduitRepository.save(itemProduit);
-            this.factureRepository.save(facture);
+            try{
 
-            // TODO fair déduction des produits acheter dans la table Produit.
+                // todo creer un service pour gérer tout les actions
+            // todo fair un rollback
+            // mise a jour des produits
+            if ( this.factureRepository.save(facture) != null){
+
+                facture.getItemProduits().forEach(itemProduit -> {
+
+                    Produit prod = this.produitRestClient.getProduitById(itemProduit.getProduit().getId_produit());
+
+                    prod.setQuantite( prod.getQuantite() - itemProduit.getQuantity() );
+
+                    this.produitRestClient.saveProduit(prod);
+                });
+            }
+
+            // TODO save item
+
+            }catch (RuntimeException run){
+                log.error("Une Erreur est survenu,\n" +
+                        "la facture n'a pas put étre enregistrer : " +
+                        run.getMessage() + "\n" +
+                        run.getCause());
+            }
+
 
             factureResponseEntity = new ResponseEntity<Facture>(facture, HttpStatus.CREATED);
         }
