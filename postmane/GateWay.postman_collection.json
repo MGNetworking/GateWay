@@ -1,0 +1,169 @@
+{
+	"info": {
+		"_postman_id": "c4b62e8d-bf91-4b12-96b7-dc450ff9d538",
+		"name": "GateWay",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Client-service",
+			"item": [
+				{
+					"name": "Liste des clients (REST)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8888/CLIENT-SERVICE/clients/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"CLIENT-SERVICE",
+								"clients",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Client by Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/clients/search/byNom?nom=maxime",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"clients",
+								"search",
+								"byNom"
+							],
+							"query": [
+								{
+									"key": "nom",
+									"value": "maxime"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Produit-service",
+			"item": [
+				{
+					"name": "Liste des produits (REST)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8888/PRODUIT-SERVICE/produits",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"PRODUIT-SERVICE",
+								"produits"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Facture-service",
+			"item": [
+				{
+					"name": "ajout d'une facture",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"itemProduits\": [\r\n        {\r\n            \"quantity\": 5,\r\n            \"produit\": {\r\n                \"nom\": \"ordinateur\",\r\n                \"prix\": 1800.9,\r\n                \"quantite\": 200\r\n            }\r\n        },\r\n        {\r\n\r\n            \"quantity\": 10.0,\r\n            \"prix\": 2800.0,\r\n            \"produit\": {\r\n                \"nom\": \"Smart phone\",\r\n                \"prix\": 280.0,\r\n                \"quantite\": 500\r\n            }\r\n        }\r\n    ],\r\n    \"client\": {\r\n        \"nom\": \"maxime\",\r\n        \"prenom\": \"ghalem\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/FACTURE-SERVICE/addfacture",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"FACTURE-SERVICE",
+								"addfacture"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Liste des Factures (REST)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8888/FACTURE-SERVICE/factures",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"FACTURE-SERVICE",
+								"factures"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "La facture complète d'un client (DEV)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8888/FACTURE-SERVICE/fullFacture/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"FACTURE-SERVICE",
+								"fullFacture",
+								"2"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
