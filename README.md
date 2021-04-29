@@ -7,10 +7,16 @@ Ce type architecture a était choisi en raison de ce performance.
 En effet, ce model assure la scalabilité verticale, avec ce model d'architecture ont exploité tout les resource du 
 serveur en niveau du CPU et la RAM. Avec ce model on peut predire le nombre requete que l'on peut traité.
 
-# Getting Started
+# Mes recherches 
 
-### Reference Documentation
-For further reference, please consider the following sections:
+### Documentation et recherche sur le projet 
+Spring cloud :
+
+* [Spring cloud config : Quick start](https://cloud.spring.io/spring-cloud-config/reference/html/)
+* [Spring cloud config : Client config](https://cloud.spring.io/spring-cloud-config/multi/multi__spring_cloud_config_client.html)
+
+### Autre documentation 
+Pour plus de référence, voir les sections suivant :
 
 * [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
 * [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.4.5/maven-plugin/reference/html/)
@@ -23,7 +29,7 @@ For further reference, please consider the following sections:
 * [Spring Boot DevTools](https://docs.spring.io/spring-boot/docs/2.4.5/reference/htmlsingle/#using-boot-devtools)
 
 ### Guides
-The following guides illustrate how to use some features concretely:
+Pour suivre des guides qui illustrent comment développé concrètement des fonctionnalités : 
 
 * [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
 * [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
