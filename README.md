@@ -1,11 +1,11 @@
 # En quoi Consiste ce projet
-Projet Spring boot dont l'objectif est la mise en place d'une architecture de type
-Gateway avec Spring Cloud Micro service.
-Spring cloud GateWay ce base sur une architecture single therad avec des entrées sorties non bloquante.
 
-Ce type architecture a était choisi en raison de ce performance. 
-En effet, ce model assure la scalabilité verticale, avec ce model d'architecture ont exploité tout les resource du 
-serveur en niveau du CPU et la RAM. Avec ce model on peut predire le nombre requete que l'on peut traité.
+Ce projet consiste en la création d'une application Spring Boot, visant à établir une architecture de type Gateway avec Spring Cloud et des microservices.
+
+Spring Cloud Gateway repose sur une architecture à thread unique et utilise des entrées/sorties non bloquantes, optimisant ainsi la gestion des requêtes.
+
+Ce choix architectural a été motivé par les performances qu'il offre. En effet, ce modèle permet une scalabilité verticale, maximisant l'utilisation des ressources du serveur, 
+tant en termes de CPU que de RAM. Grâce à cette approche, il est possible de prédire efficacement le nombre de requêtes que le système peut traiter.
 
 # Mes recherches 
 
